@@ -1,8 +1,11 @@
+import crypto from "crypto";
 import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 import { WebSocketServer } from "ws";
+import { MessageRouter } from "./network/MessageRouter.js";
+import { RoomManager } from "./rooms/RoomManager.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,20 +21,47 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(clientDist));
 }
 
+const roomManager = new RoomManager();
+const messageRouter = new MessageRouter(roomManager);
+
 const wss = new WebSocketServer({ server });
 
 wss.on("connection", (ws) => {
-  console.log("[WS] Client connected");
+  const playerId = crypto.randomUUID();
+  console.log(`[WS] Client connected: ${playerId}`);
 
   ws.on("message", (data) => {
-    console.log("[WS] Received:", data.toString());
-    // Echo for now – will be replaced by MessageRouter
-    ws.send(data.toString());
+    const raw = typeof data === "string" ? data : data.toString();
+    messageRouter.handleMessage(ws, playerId, raw);
   });
 
   ws.on("close", () => {
-    console.log("[WS] Client disconnected");
+    console.log(`[WS] Client disconnected: ${playerId}`);
+    messageRouter.handleDisconnect(playerId);
   });
+
+  // Heartbeat
+  ws.on("pong", () => {
+    (ws as any).__alive = true;
+  });
+  (ws as any).__alive = true;
+});
+
+// Heartbeat interval
+const heartbeat = setInterval(() => {
+  wss.clients.forEach((ws) => {
+    if ((ws as any).__alive === false) {
+      ws.terminate();
+      return;
+    }
+    (ws as any).__alive = false;
+    ws.ping();
+  });
+}, 30_000);
+
+wss.on("close", () => {
+  clearInterval(heartbeat);
+  roomManager.destroy();
 });
 
 server.listen(PORT, () => {
