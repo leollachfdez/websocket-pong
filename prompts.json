@@ -1,0 +1,63 @@
+[
+    {
+        "id": "prompt_1",
+        "title": "Follow the README idea",
+        "description": "Basandote en la idea del README, crea el documento de requisitos del proyecto. Este documento debe incluir una descripción detallada de las funcionalidades, los objetivos y los requisitos técnicos del proyecto.",
+        "tags": [
+            "basic",
+            "readme",
+            "functional requirements",
+            "ideas"
+        ]
+    },
+    {
+        "id": "prompt_2",
+        "title": "Create a project plan",
+        "description": "Desarrolla un plan de proyecto detallado que incluya las etapas del desarrollo, los hitos importantes, los recursos necesarios y un cronograma estimado para la finalización del proyecto.",
+        "tags": [
+            "project management",
+            "planning",
+            "timeline"
+        ]
+    },
+    {
+        "id": "prompt_3",
+        "title": "Design the architecture",
+        "description": "Diseña la arquitectura del sistema para el proyecto. Esto debe incluir la estructura general del software, los componentes principales, las interacciones entre ellos y las tecnologías que se utilizarán.",
+        "tags": [
+            "architecture",
+            "design",
+            "technology"
+        ]
+    },
+    {
+        "id": "prompt_4",
+        "title": "Identify potential challenges",
+        "description": "Identifica los posibles desafíos y obstáculos que podrían surgir durante el desarrollo del proyecto. Proporciona estrategias para abordar estos desafíos y minimizar su impacto en el progreso del proyecto.",
+        "tags": [
+            "challenges",
+            "problem-solving",
+            "risk management"
+        ]
+    },
+    {
+        "id": "prompt_5",
+        "title": "Define success criteria",
+        "description": "Define los criterios de éxito para el proyecto. Esto debe incluir métricas específicas que se utilizarán para evaluar el rendimiento y la calidad del producto final, así como los objetivos que se deben alcanzar para considerar el proyecto como exitoso.",
+        "tags": [
+            "success criteria",
+            "metrics",
+            "evaluation"
+        ]
+    },
+    {
+        "id": "prompt_6",
+        "title": "Sprints and milestones",
+        "description": "Define los sprints y los hitos del proyecto. Esto debe incluir la duración de cada sprint, los objetivos específicos de cada uno y los hitos importantes que se deben alcanzar a lo largo del desarrollo del proyecto.",
+        "tags": [
+            "sprints",
+            "milestones",
+            "project management"
+        ]
+    }
+]
