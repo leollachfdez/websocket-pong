@@ -16,6 +16,10 @@
     "build:server": "cd server && npm run build",
     "start": "node dist/server/src/main.js"
   },
+  "dependencies": {
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  },
   "devDependencies": {
     "concurrently": "^9.1.2"
   }
