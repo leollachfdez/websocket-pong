@@ -17,9 +17,11 @@ const server = createServer(app);
 
 // Serve static client build in production and fallback to index.html
 if (process.env.NODE_ENV === "production") {
-  const clientDist = path.join(process.cwd(), "dist", "client");
+  const clientDist = path.resolve(__dirname, "..", "..", "dist", "client");
   app.use(express.static(clientDist));
-  app.get("*", (_req, res) => {
+
+  // Fallback route for client-side routing. Exclude API routes to avoid swallowing future routes.
+  app.get(/^(?!\/api\/).*/, (_req, res) => {
     res.sendFile(path.join(clientDist, "index.html"));
   });
 }

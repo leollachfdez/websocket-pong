@@ -1,7 +1,17 @@
 import { WebSocketClient } from "./network/WebSocketClient.js";
 import { ScreenManager } from "./screens/ScreenManager.js";
 
-const wsUrl = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}`;
+const isProduction = typeof import.meta !== "undefined" && (import.meta as any).env?.MODE === "production";
+const wsUrl = (() => {
+  const protocol = location.protocol === "https:" ? "wss" : "ws";
+
+  if (!isProduction) {
+    const devPort = new URLSearchParams(location.search).get("wsPort") || "3000";
+    return `${protocol}://${location.hostname}:${devPort}`;
+  }
+
+  return `${protocol}://${location.host}`;
+})();
 
 const client = new WebSocketClient(wsUrl);
 
